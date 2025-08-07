@@ -7,3 +7,6 @@ Fig. 1. Cumulative Returns
 
 ![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Correlation.png?raw=true)
 Fig. 2. Heatmap of Correlations
+
+![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Boxplot.png?raw=true)
+Fig. 3. Boxplot of Stock Returns
