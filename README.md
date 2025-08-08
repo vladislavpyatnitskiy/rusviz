@@ -10,3 +10,6 @@ Fig. 2. Heatmap of Correlations
 
 ![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Boxplot.png?raw=true)
 Fig. 3. Boxplot of Stock Returns
+
+![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Barplot.png?raw=true)
+Fig. 4. Barplot of Russian Stocks' Performance
