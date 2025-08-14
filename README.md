@@ -13,3 +13,6 @@ Fig. 3. Boxplot of Stock Returns
 
 ![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Barplot.png?raw=true)
 Fig. 4. Barplot of Russian Stocks' Performance
+
+![](https://github.com/vladislavpyatnitskiy/rusviz/blob/main/Plots/Histogram.png?raw=true)
+Fig. 5. Histogram plot for Russian Stock Returns
