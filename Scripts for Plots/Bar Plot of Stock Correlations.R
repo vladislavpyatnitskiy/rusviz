@@ -101,24 +101,24 @@ bar.plt.cor <- function(x, main=NULL){
   m <- NULL # Write advices about securities according to correlations
   
   j <- list(
-    list(.5, 1, "Sell these Assets:"),
-    list(.45, .5, "Sell one of these Assets:"),
-    list(.4, .45, "Consider to sell one of these Assets:"),
-    list(.35, .4, "Check these Assets:"),
-    list(.3, .35, "OK to keep Assets:"),
-    list(.25, .3, "Good Assets:"),
-    list(.2, .25, "Great Assets:"),
-    list(-1, .2, "Best Assets:")
+    c(.5, 1, "Sell these Assets:"),
+    c(.45, .5, "Sell one of these Assets:"),
+    c(.4, .45, "Consider to sell one of these Assets:"),
+    c(.35, .4, "Check these Assets:"),
+    c(.3, .35, "OK to keep Assets:"),
+    c(.25, .3, "Good Assets:"),
+    c(.2, .25, "Great Assets:"),
+    c(-1, .2, "Best Assets:")
   ) 
   
   for (n in 1:length(j)){ # Messages indicating correlation levels for stocks
     
-    o = j[[n]][[1]]
-    t = j[[n]][[2]]
+    o = j[[n]][1]
+    t = j[[n]][2]
     
     if (!identical(names(which(h > o & h < t)), character(0))){
       
-      m <- c(m, paste(j[[n]][[3]], toString(names(which(h>o & h<t))))) } }
+      m = c(m, paste(j[[n]][3], toString(names(which(h > o & h < t))))) } }
   
   m # Display
 }
