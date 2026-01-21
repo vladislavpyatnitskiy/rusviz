@@ -10,6 +10,13 @@ rus.correlation <- function(x, s=NULL, e=NULL, data=T, lg=T, size=1.5){
       
       D <- as.data.frame(get_candles(a, "2007-01-01", till=as.Date(Sys.Date()),
                                      interval = 'daily')[,c(3,8)])
+
+      message(
+        sprintf(
+          "%s is downloaded (%s / %s)", 
+          a, which(x == a), length(x)
+        )
+      )
       
       D <- D[!duplicated(D),] # Remove duplicates
       
