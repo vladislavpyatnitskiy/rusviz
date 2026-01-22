@@ -12,7 +12,14 @@ rus.cum.plot <- function(x, s = NULL, e = NULL, main = NULL){
     return(get_candles(A, from = s, till = e, interval = 'daily')) 
   }
   for (A in x){ D <- as.data.frame(getData(A, s, e)[,c(3,8)])
-  
+
+    message(
+      sprintf(
+        "%s is downloaded (%s / %s)", 
+        A, which(x == A), length(x)
+      )
+    )
+               
     D <- D[!duplicated(D),] # Remove duplicates
     
     p <- cbind(p, xts(D[, 1], order.by = as.Date(D[, 2]))) }
