@@ -33,7 +33,9 @@ box.plt.rus <- function(x, s=NULL, e=NULL, data=T, lg=F, main=NULL, xlab=NULL){
   if (lg | data) x <- diff(log(as.timeSeries(x)))[-1,] # log returns
   
   if (is.null(main)) main = "Fluctuations of Securities"
-  
+
+  par(mar = c(5, rep(4, 3))) # Define borders of the plot to fit right y-axis
+                 
   boxplot.matrix(
     x,
     main = main,
@@ -44,8 +46,6 @@ box.plt.rus <- function(x, s=NULL, e=NULL, data=T, lg=F, main=NULL, xlab=NULL){
     )
   
   axis(side = 4, las = 2) # Second y-axis
-  
-  par(mar = c(5, 4, 4, 4)) # Define borders of the plot to fit right y-axis
   
   grid(nx = NULL, ny = NULL, col = "grey", lty = "dotted", lwd = 1)
   
