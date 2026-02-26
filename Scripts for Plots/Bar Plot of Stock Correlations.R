@@ -65,7 +65,9 @@ bar.plt.cor <- function(x, main=NULL){
     "#403367","#da8a6d","#a79cd4","#71482c","#c689d0","#6b2940","#d593a7",
     "#895c8b","#bd5975"
   ) # Add colour range
-  
+
+  par(mar = rep(5, 4)) # Define borders of the plot
+               
   # Create bar plot
   B <- barplot(
     l[,1],
@@ -89,8 +91,6 @@ bar.plt.cor <- function(x, main=NULL){
   v <- c(0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2)
   
   for (n in 1:length(v)){ abline(h = v[n], col = c[n], lwd = 2) } # Lines
-  
-  par(mar = rep(5, 4)) # Define borders of the plot
   
   box() # Add box
   
