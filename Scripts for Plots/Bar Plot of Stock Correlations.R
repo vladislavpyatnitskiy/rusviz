@@ -1,31 +1,42 @@
 lapply(c("xts", "timeSeries", "moexer"), require, character.only = T) # lib
 
-bar.plt.cor <- function(x, main=NULL){
+bar.plt.cor <- function(x, main=NULL, method="spearman"){
   
-  p <- NULL # Create an empty variable and get stock price data
+  p <- NULL
   
-  for (a in x){ 
+  for (n in 1:length(x)){ # Get data of Russian stocks
     
-    D <- as.data.frame(get_candles(a, "2007-01-01", till = as.Date(Sys.Date()),
-                                   interval = 'daily')[,c(3,8)])
-
-    message(
-      sprintf(
-        "%s is downloaded (%s / %s)", 
-        a, which(x == a), length(x)
-      )
-    )
+    D = as.data.frame(get_candles(x[n],"2007-01-01",interval='daily')[,c(3,8)])
     
     D <- D[!duplicated(D),] # Remove duplicates
     
-    p <- cbind(p, xts(D[, 1], order.by = as.Date(D[, 2]))) }
+    D <- xts(D[,1], order.by = as.Date(D[,2])) # Move dates to row names
+    
+    D <- D[apply(D, 1, function(x) all(!is.na(x))),] # Get rid of NA
+    
+    colnames(D) <- x[n] # Put the tickers in data set
+    
+    D <- as.timeSeries(D) # Make it time series
+    
+    if (x[n] == "BELU"){ f <- which(rownames(D) == "2024-08-15")
+    
+    D[c(1:f),] <- D[c(1:f),]/8 } # Adjustments for Novabev stock
+    
+    message(
+      sprintf(
+        "%s is downloaded; %s from %s", 
+        x[n], which(x == x[n]), length(x)
+      )
+    )
+  
+    p <- cbind(p, D) }
   
   p <- p[apply(p, 1, function(x) all(!is.na(x))),] # Eliminate NAs
   
   colnames(p) <- x # Column names
   
   # Calculate correlation matrix
-  cor_matrix <- cor(as.matrix(diff(log(as.timeSeries(p)))[-1,]))
+  cor_matrix <- cor(as.matrix(diff(log(as.timeSeries(p)))[-1,]), method=method)
   
   # Extract unique pairs and their correlations
   cor_pairs <- which(upper.tri(cor_matrix, diag = TRUE), arr.ind = TRUE)
@@ -65,9 +76,9 @@ bar.plt.cor <- function(x, main=NULL){
     "#403367","#da8a6d","#a79cd4","#71482c","#c689d0","#6b2940","#d593a7",
     "#895c8b","#bd5975"
   ) # Add colour range
-
+  
   par(mar = rep(5, 4)) # Define borders of the plot
-               
+  
   # Create bar plot
   B <- barplot(
     l[,1],
