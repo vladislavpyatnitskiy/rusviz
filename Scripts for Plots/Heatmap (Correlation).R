@@ -1,16 +1,17 @@
 lapply(c("moexer", "timeSeries", "xts"), require, character.only = T) # Libs 
 
-rus.correlation <- function(x, s=NULL, e=NULL, data=T, lg=T, size=1.5){
+rus.correlation <- function(x, s=NULL, e=NULL, data=T, lg=T, size=1.5, 
+                            method="spearman"){
   
-  if (x < 2) return(message("Needed at least two tickers for correlation"))
+  if (length(x) < 2) return(message("Needed at least two tickers"))
   
   if (data){ p <- NULL # data off
-    
+  
     for (a in x){ 
       
       D <- as.data.frame(get_candles(a, "2007-01-01", till=as.Date(Sys.Date()),
                                      interval = 'daily')[,c(3,8)])
-
+      
       message(
         sprintf(
           "%s is downloaded (%s / %s)", 
@@ -28,13 +29,13 @@ rus.correlation <- function(x, s=NULL, e=NULL, data=T, lg=T, size=1.5){
     
     x <- p } # Give column names 
     
-  if (lg | data) { x <- diff(log(as.timeSeries(x)))[-1,] }
+  if (lg | data) x <- diff(log(as.timeSeries(x)))[-1,]
   
   m.correlation = as.matrix(x) # Convert data into matrix
   
   c.correlation = ncol(m.correlation) # Get number of columns
   
-  new_cor <- cor(m.correlation) # Calculate correlation coefficients
+  new_cor <- cor(m.correlation, method=method) # Calculate correlation values
   
   par(mar = rep(5,4)) # Define borders of the plot
   
